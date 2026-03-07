@@ -2018,12 +2018,129 @@ button {
 @media (max-width: 900px) {
   .service-cards {
     grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .service-card {
+    padding: 22px 18px;
+  }
+
+  .editorial-grid,
+  .panel-grid,
+  .gallery-grid,
+  .steps-grid,
+  .menu-grid,
+  .offers-grid,
+  .tiers-grid,
+  .shop-grid,
+  .book-grid {
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .feature-grid {
+    gap: 14px;
+  }
+
+  .editorial-copy,
+  .editorial-gallery {
+    padding: 20px;
+  }
+
+  .feature-card {
+    padding: 20px;
   }
 }
 
 @media (max-width: 640px) {
   .brand-logo {
     height: 38px;
+  }
+
+  /* ── Tighten section/card spacing on phones ───────────────── */
+  .hero,
+  .page-hero,
+  .planner-card,
+  .detail-panel,
+  .cta-banner {
+    padding: 18px 14px;
+  }
+
+  .service-card {
+    padding: 16px 14px;
+    gap: 4px;
+  }
+
+  .service-card__icon {
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+
+  .service-cards {
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .editorial-copy,
+  .editorial-gallery {
+    padding: 16px;
+  }
+
+  .feature-card {
+    padding: 16px;
+  }
+
+  .editorial-grid,
+  .panel-grid,
+  .gallery-grid,
+  .steps-grid,
+  .menu-grid,
+  .offers-grid,
+  .tiers-grid,
+  .shop-grid,
+  .book-grid,
+  .feature-grid {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .promo-carousel {
+    margin-top: 18px;
+  }
+
+  .section-block {
+    margin-top: 16px;
+  }
+
+  .section-heading {
+    margin-bottom: 10px;
+  }
+
+  .offer-card,
+  .rule-card,
+  .tier-card,
+  .book-panel,
+  .shop-card {
+    padding: 14px 12px;
+  }
+
+  .offer-card p,
+  .rule-card p,
+  .tier-card p {
+    margin: 6px 0 0;
+    font-size: 0.92rem;
+  }
+
+  .offer-card h3,
+  .tier-card h3 {
+    margin-top: 4px;
+    font-size: 1rem;
+  }
+
+  .offer-card strong {
+    font-size: 1.2rem;
+    margin-top: 4px;
   }
 
   .hero h1,
