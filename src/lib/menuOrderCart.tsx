@@ -1,35 +1,22 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-
-type MenuCartMap = Record<string, number>
-
-type MenuOrderCartContextType = {
-  cart: MenuCartMap
-  addItem: (title: string) => void
-  decreaseItem: (title: string) => void
-  removeItem: (title: string) => void
-  clearCart: () => void
-}
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { MenuOrderCartContext, type MenuCartMap, type MenuOrderCartContextType } from './menuOrderCartContext'
 
 const STORAGE_KEY = 'fusion-menu-order-cart-v1'
 
-const MenuOrderCartContext = createContext<MenuOrderCartContextType | null>(null)
-
 export function MenuOrderCartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<MenuCartMap>({})
-
-  useEffect(() => {
+  const [cart, setCart] = useState<MenuCartMap>(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
       if (!raw) {
-        return
+        return {}
       }
 
       const parsed = JSON.parse(raw) as MenuCartMap
-      setCart(parsed)
+      return parsed
     } catch {
-      setCart({})
+      return {}
     }
-  }, [])
+  })
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cart))
@@ -45,7 +32,8 @@ export function MenuOrderCartProvider({ children }: { children: ReactNode }) {
         setCart((current) => {
           const nextQty = (current[title] ?? 0) - 1
           if (nextQty <= 0) {
-            const { [title]: _removed, ...rest } = current
+            const rest = { ...current }
+            delete rest[title]
             return rest
           }
 
@@ -54,7 +42,8 @@ export function MenuOrderCartProvider({ children }: { children: ReactNode }) {
       },
       removeItem: (title: string) => {
         setCart((current) => {
-          const { [title]: _removed, ...rest } = current
+          const rest = { ...current }
+          delete rest[title]
           return rest
         })
       },
@@ -64,13 +53,4 @@ export function MenuOrderCartProvider({ children }: { children: ReactNode }) {
   )
 
   return <MenuOrderCartContext.Provider value={value}>{children}</MenuOrderCartContext.Provider>
-}
-
-export function useMenuOrderCart() {
-  const context = useContext(MenuOrderCartContext)
-  if (!context) {
-    throw new Error('useMenuOrderCart must be used within MenuOrderCartProvider')
-  }
-
-  return context
 }

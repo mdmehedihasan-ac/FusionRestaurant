@@ -1,16 +1,11 @@
 import { useEffect, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { contacts, navItems, utilityLinks } from '../data/siteContent'
 import { trackEvent } from '../lib/tracking'
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const location = useLocation()
-
-  useEffect(() => {
-    setMenuOpen(false)
-  }, [location.pathname])
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
@@ -34,7 +29,7 @@ export function Header() {
         <p>{contacts.address}</p>
         <div className="top-strip__actions">
           {utilityLinks.slice(0, 2).map((item) => (
-            <NavLink key={item.href} to={item.href}>
+            <NavLink key={item.href} to={item.href} onClick={() => setMenuOpen(false)}>
               {item.label}
             </NavLink>
           ))}
@@ -53,7 +48,7 @@ export function Header() {
       </div>
 
       <div className="nav-shell">
-        <NavLink to="/" className="brand-mark" aria-label="Fusion Restaurant home">
+        <NavLink to="/" className="brand-mark" aria-label="Fusion Restaurant home" onClick={() => setMenuOpen(false)}>
           <img src="/Logo-Fusion-Restaurant-Parabiago.jpg" alt="Fusion Restaurant Parabiago" className="brand-logo" />
         </NavLink>
 
@@ -64,6 +59,7 @@ export function Header() {
               to={item.path}
               className={({ isActive }) => (isActive ? 'nav-link nav-link--active' : 'nav-link')}
               end={item.path === '/'}
+              onClick={() => setMenuOpen(false)}
             >
               {item.label}
             </NavLink>
@@ -107,6 +103,7 @@ export function Header() {
               to={item.path}
               className={({ isActive }) => (isActive ? 'mobile-link mobile-link--active' : 'mobile-link')}
               end={item.path === '/'}
+              onClick={() => setMenuOpen(false)}
             >
               {item.label}
             </NavLink>

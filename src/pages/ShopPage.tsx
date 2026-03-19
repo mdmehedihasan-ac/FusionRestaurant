@@ -2,18 +2,11 @@ import { Link } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { buildWhatsAppLink, menuCategories, shopProducts } from '../data/siteContent'
 import { trackEvent } from '../lib/tracking'
+import { slugify } from '../lib/slugify'
 
 export function ShopPage() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [cart, setCart] = useState<Record<string, number>>({})
-
-  const slugify = (value: string) =>
-    value
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '')
 
   const cartEntries = useMemo(() => {
     return shopProducts

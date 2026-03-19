@@ -1,18 +1,12 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { menuCategories } from '../data/siteContent'
 import { trackEvent } from '../lib/tracking'
-import { useMenuOrderCart } from '../lib/menuOrderCart'
+import { useMenuOrderCart } from '../lib/useMenuOrderCart'
 
 export function MenuOrderCart() {
-  const location = useLocation()
   const [drawerOpen, setDrawerOpen] = useState(false)
   const { cart, addItem, decreaseItem, removeItem, clearCart } = useMenuOrderCart()
-
-  const isMenuRoute = location.pathname === '/menu' || location.pathname.startsWith('/menu/')
-  if (!isMenuRoute) {
-    return null
-  }
 
   const entries = menuCategories
     .filter((item) => (cart[item.title] ?? 0) > 0)

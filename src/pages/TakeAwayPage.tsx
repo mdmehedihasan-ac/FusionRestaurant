@@ -1,16 +1,9 @@
 import { Link } from 'react-router-dom'
 import { contacts, menuCategories, orderingSteps } from '../data/siteContent'
 import { trackEvent } from '../lib/tracking'
+import { slugify } from '../lib/slugify'
 
 export function TakeAwayPage() {
-  const slugify = (value: string) =>
-    value
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '')
-
   return (
     <main className="page-shell page-shell--inner">
       <section className="page-hero page-hero--split">

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
 import { defaultSeo, seoByPath } from '../data/siteContent'
+import { getCanonicalPath } from '../lib/sectionRouting'
 
 type SeoProps = {
   title?: string
@@ -9,7 +10,7 @@ type SeoProps = {
 
 export function Seo({ title, description }: SeoProps) {
   const location = useLocation()
-  const canonicalPath = location.pathname
+  const canonicalPath = getCanonicalPath(location.pathname)
   const merged = seoByPath[canonicalPath] ?? defaultSeo
   const seoTitle = title ?? merged.title
   const seoDescription = description ?? merged.description

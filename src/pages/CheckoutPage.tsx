@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { buildWhatsAppLink, menuCategories } from '../data/siteContent'
 import { trackEvent } from '../lib/tracking'
-import { useMenuOrderCart } from '../lib/menuOrderCart'
+import { useMenuOrderCart } from '../lib/useMenuOrderCart'
 
 export function CheckoutPage() {
   const { cart, clearCart } = useMenuOrderCart()

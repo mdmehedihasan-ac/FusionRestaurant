@@ -1,15 +1,8 @@
 import { Link, useParams } from 'react-router-dom'
 import { buildWhatsAppLink, menuCategories } from '../data/siteContent'
 import { trackEvent } from '../lib/tracking'
-import { useMenuOrderCart } from '../lib/menuOrderCart'
-
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
+import { useMenuOrderCart } from '../lib/useMenuOrderCart'
+import { slugify } from '../lib/slugify'
 
 export function MenuItemPage() {
   const { slug } = useParams<{ slug: string }>()

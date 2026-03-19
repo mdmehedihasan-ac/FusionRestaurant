@@ -53,6 +53,11 @@ export type ShopProduct = {
   price: number
 }
 
+export type MenuSection = {
+  label: string
+  count?: number
+}
+
 export type PositiveReview = {
   author: string
   quote: string
@@ -467,7 +472,7 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     name: 'Tartare Saporiko',
-    category: 'Signature',
+    category: 'Usuzukuri (Carpacci)',
     image:
       'https://www.fusionrestaurant.it/wp-content/uploads/2020/04/Tartare-saporiko-Fusion-Restaurant-Parabiago-300x300.jpg',
     price: 14,
@@ -481,11 +486,34 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     name: 'Souffle al cioccolato',
-    category: 'Dessert',
+    category: 'Dolci',
     image:
       'https://www.fusionrestaurant.it/wp-content/uploads/2021/02/Souffle-al-cioccolato-300x300.jpg',
     price: 7,
   },
+]
+
+export const menuSections: MenuSection[] = [
+  { label: 'Nippo tapas', count: 3 },
+  { label: 'Novità', count: 2 },
+  { label: 'Sushi Box', count: 11 },
+  { label: 'Usuzukuri (Carpacci)', count: 5 },
+  { label: 'Hosomaki', count: 6 },
+  { label: 'Nighiri', count: 10 },
+  { label: 'Temaki', count: 8 },
+  { label: 'Uramaki', count: 25 },
+  { label: 'Uramaki Venere', count: 4 },
+  { label: 'Futomaki', count: 4 },
+  { label: 'Gunkan', count: 8 },
+  { label: 'Chirashi', count: 3 },
+  { label: 'Sashimi', count: 2 },
+  { label: 'Zensai (Antipasti)', count: 21 },
+  { label: 'Salad', count: 6 },
+  { label: 'Poke', count: 2 },
+  { label: 'Agemono', count: 5 },
+  { label: 'Primi', count: 10 },
+  { label: 'Secondi', count: 19 },
+  { label: 'Dolci' },
 ]
 
 export const positiveReviews: PositiveReview[] = [
