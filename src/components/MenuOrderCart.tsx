@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { menuCategories } from '../data/siteContent'
+import { getEntriesCount, resolveCartEntries } from '../lib/cartEntries'
 import { trackEvent } from '../lib/tracking'
 import { useMenuOrderCart } from '../lib/useMenuOrderCart'
 
@@ -8,16 +8,13 @@ export function MenuOrderCart() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const { cart, addItem, decreaseItem, removeItem, clearCart } = useMenuOrderCart()
 
-  const entries = menuCategories
-    .filter((item) => (cart[item.title] ?? 0) > 0)
-    .map((item) => ({
-      title: item.title,
-      qty: cart[item.title],
-      priceRange: item.priceRange ?? 'Prezzo su richiesta',
-      image: item.image,
-    }))
-
-  const itemsCount = entries.reduce((total, item) => total + item.qty, 0)
+  const entries = resolveCartEntries(cart)
+  const itemsCount = getEntriesCount(entries)
+  const subtotal = useMemo(
+    () => entries.reduce((total, item) => total + (item.unitPrice ?? 0) * item.qty, 0),
+    [entries],
+  )
+  const hasUnknownPrices = entries.some((item) => item.unitPrice === undefined)
 
   return (
     <>
@@ -52,7 +49,13 @@ export function MenuOrderCart() {
           {entries.map((item) => (
             <div key={item.title} className="cart-row">
               <div className="cart-row__main">
-                <img className="cart-row__thumb" src={item.image} alt={item.title} loading="lazy" />
+                {item.image ? (
+                  <img className="cart-row__thumb" src={item.image} alt={item.title} loading="lazy" />
+                ) : (
+                  <div className="img-ph cart-row__thumb" role="img" aria-label={item.title}>
+                    img
+                  </div>
+                )}
                 <div>
                   <strong>{item.title}</strong>
                   <p className="cart-row__meta">{item.priceRange}</p>
@@ -73,6 +76,16 @@ export function MenuOrderCart() {
             </div>
           ))}
         </div>
+
+        {entries.length > 0 && (
+          <p className="cart-drawer__total">
+            Totale{' '}
+            <strong>
+              EUR {subtotal.toFixed(2)}
+              {hasUnknownPrices ? ' (stimato)' : ''}
+            </strong>
+          </p>
+        )}
 
         <div className="stack-actions">
           <Link

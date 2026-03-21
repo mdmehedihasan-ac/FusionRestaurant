@@ -1,5 +1,5 @@
-import { buildWhatsAppLink, contacts, fidelityBenefits, fidelityTiers } from '../data/siteContent'
-import { trackEvent } from '../lib/tracking'
+import { contacts, fidelityBenefits, fidelityTiers } from '../data/siteContent'
+import { WhatsAppButton } from '../components/WhatsAppButton'
 
 export function FidelityPage() {
   return (
@@ -29,9 +29,9 @@ export function FidelityPage() {
             Nessun form complesso: richiesta rapida, conferma canale preferito e risposta immediata dal ristorante.
           </p>
           <div className="stack-actions">
-            <a className="button button--primary" href={buildWhatsAppLink('Ciao, vorrei aderire alla Fidelity Card Fusion.')} target="_blank" rel="noreferrer">
+            <WhatsAppButton className="button button--primary" message="Ciao, vorrei aderire alla Fidelity Card Fusion.">
               Attiva via WhatsApp
-            </a>
+            </WhatsAppButton>
             <a className="button button--ghost" href={contacts.phoneHref}>
               Chiama il ristorante
             </a>
@@ -58,15 +58,13 @@ export function FidelityPage() {
           <h2>Passa al tuo livello successivo in modo guidato.</h2>
         </div>
         <div className="cta-banner__actions">
-          <a
+          <WhatsAppButton
             className="button button--primary"
-            href={buildWhatsAppLink('Ciao, voglio entrare subito nel programma Fidelity Fusion.')}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => trackEvent('fidelity_join_click')}
+            message="Ciao, voglio entrare subito nel programma Fidelity Fusion."
+            eventName="fidelity_join_click"
           >
             Inizia adesione
-          </a>
+          </WhatsAppButton>
         </div>
       </section>
     </main>

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useMemo, useState } from 'react'
-import { buildWhatsAppLink, menuCategories } from '../data/siteContent'
+import { buildWhatsAppLink } from '../data/siteContent'
+import { getEntriesCount, resolveCartEntries } from '../lib/cartEntries'
+import { sanitizePhone, sanitizeSingleLine, sanitizeTextBlock, sanitizeTime } from '../lib/inputSanitizers'
 import { trackEvent } from '../lib/tracking'
 import { useMenuOrderCart } from '../lib/useMenuOrderCart'
 
@@ -13,17 +15,8 @@ export function CheckoutPage() {
   const [address, setAddress] = useState('')
   const [notes, setNotes] = useState('')
 
-  const entries = useMemo(() => {
-    return menuCategories
-      .filter((item) => (cart[item.title] ?? 0) > 0)
-      .map((item) => ({
-        title: item.title,
-        qty: cart[item.title],
-        priceRange: item.priceRange ?? 'Prezzo su richiesta',
-      }))
-  }, [cart])
-
-  const itemsCount = entries.reduce((total, item) => total + item.qty, 0)
+  const entries = useMemo(() => resolveCartEntries(cart), [cart])
+  const itemsCount = getEntriesCount(entries)
 
   const orderMessage = useMemo(() => {
     if (entries.length === 0) {
@@ -82,11 +75,22 @@ export function CheckoutPage() {
           <h2>Dati cliente</h2>
           <label>
             Nome e cognome
-            <input value={fullName} onChange={(event) => setFullName(event.target.value)} placeholder="Mario Rossi" />
+            <input
+              value={fullName}
+              onChange={(event) => setFullName(sanitizeSingleLine(event.target.value, 80))}
+              maxLength={80}
+              placeholder="Mario Rossi"
+            />
           </label>
           <label>
             Telefono
-            <input value={phone} onChange={(event) => setPhone(event.target.value)} placeholder="333 1234567" />
+            <input
+              type="tel"
+              value={phone}
+              onChange={(event) => setPhone(sanitizePhone(event.target.value))}
+              maxLength={20}
+              placeholder="333 1234567"
+            />
           </label>
           <label>
             Modalita
@@ -97,17 +101,31 @@ export function CheckoutPage() {
           </label>
           <label>
             Orario preferito
-            <input value={pickupTime} onChange={(event) => setPickupTime(event.target.value)} placeholder="es. 20:15" />
+            <input
+              type="time"
+              value={pickupTime}
+              onChange={(event) => setPickupTime(sanitizeTime(event.target.value))}
+            />
           </label>
           {serviceMode === 'consegna' && (
             <label>
               Indirizzo consegna
-              <input value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Via, numero civico, citta" />
+              <input
+                value={address}
+                onChange={(event) => setAddress(sanitizeSingleLine(event.target.value, 140))}
+                maxLength={140}
+                placeholder="Via, numero civico, citta"
+              />
             </label>
           )}
           <label>
             Note
-            <textarea value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="Allergie, citofono, richieste speciali" />
+            <textarea
+              value={notes}
+              onChange={(event) => setNotes(sanitizeTextBlock(event.target.value, 240))}
+              maxLength={240}
+              placeholder="Allergie, citofono, richieste speciali"
+            />
           </label>
 
           <div className="stack-actions">

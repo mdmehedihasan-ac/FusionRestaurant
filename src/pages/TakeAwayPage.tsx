@@ -15,17 +15,26 @@ export function TakeAwayPage() {
           </p>
         </div>
         <div className="planner-card">
-          <h2>Vai al checkout</h2>
+          <h2>Apri menu completo</h2>
           <p>
-            Seleziona i tuoi prodotti dal menu, poi completa il checkout con i tuoi dati per inviare l'ordine su WhatsApp.
+            Consulta il menu completo e poi vai al checkout per inviare l'ordine con i tuoi dati.
           </p>
-          <Link
-            to="/checkout"
-            className="button button--primary"
-            onClick={() => trackEvent('takeaway_checkout_click')}
-          >
-            Apri checkout
-          </Link>
+          <div className="stack-actions">
+            <Link
+              to="/menu/take-away"
+              className="button button--primary"
+              onClick={() => trackEvent('takeaway_menu_click')}
+            >
+              Apri menu con carrello
+            </Link>
+            <Link
+              to="/checkout"
+              className="button button--ghost"
+              onClick={() => trackEvent('takeaway_checkout_click')}
+            >
+              Vai al checkout
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -69,8 +78,8 @@ export function TakeAwayPage() {
             <a className="button button--ghost" href={contacts.phoneHref} onClick={() => trackEvent('takeaway_phone_click')}>
               Telefona al ristorante
             </a>
-            <Link className="button button--ghost" to="/menu">
-              Apri menu
+            <Link className="button button--ghost" to="/menu/take-away" onClick={() => trackEvent('takeaway_menu_click', { area: 'quick_actions' })}>
+              Apri menu con carrello
             </Link>
           </div>
         </article>

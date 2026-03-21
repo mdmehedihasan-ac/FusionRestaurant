@@ -1,25 +1,62 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { MenuOrderCartContext, type MenuCartMap, type MenuOrderCartContextType } from './menuOrderCartContext'
+import { sanitizeCartMap } from './cartSecurity'
 
 const STORAGE_KEY = 'fusion-menu-order-cart-v1'
+const STORAGE_TTL_MS = 1000 * 60 * 60 * 24 * 7
 
-export function MenuOrderCartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<MenuCartMap>(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if (!raw) {
+type StoredCartPayload = {
+  updatedAt: number
+  cart: MenuCartMap
+}
+
+function getStoredCart(): MenuCartMap {
+  if (typeof window === 'undefined') {
+    return {}
+  }
+
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) {
+      return {}
+    }
+
+    const parsed = JSON.parse(raw) as unknown
+
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed) && 'cart' in parsed) {
+      const payload = parsed as StoredCartPayload
+      const isExpired = typeof payload.updatedAt !== 'number' || Date.now() - payload.updatedAt > STORAGE_TTL_MS
+      if (isExpired) {
+        localStorage.removeItem(STORAGE_KEY)
         return {}
       }
 
-      const parsed = JSON.parse(raw) as MenuCartMap
-      return parsed
-    } catch {
-      return {}
+      return sanitizeCartMap(payload.cart)
     }
-  })
+
+    // Backward compatibility for old plain cart map format.
+    return sanitizeCartMap(parsed)
+  } catch {
+    return {}
+  }
+}
+
+export function MenuOrderCartProvider({ children }: { children: ReactNode }) {
+  const [cart, setCart] = useState<MenuCartMap>(() => getStoredCart())
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart))
+    const safeCart = sanitizeCartMap(cart)
+    if (Object.keys(safeCart).length === 0) {
+      localStorage.removeItem(STORAGE_KEY)
+      return
+    }
+
+    const payload: StoredCartPayload = {
+      updatedAt: Date.now(),
+      cart: safeCart,
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
   }, [cart])
 
   const value = useMemo<MenuOrderCartContextType>(

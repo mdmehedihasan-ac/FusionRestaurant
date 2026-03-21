@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { buildWhatsAppLink, contacts, openingHours, positiveReviews } from '../data/siteContent'
+import { contacts, openingHours, positiveReviews } from '../data/siteContent'
+import { sanitizeTextBlock, sanitizeTime } from '../lib/inputSanitizers'
 import { trackEvent } from '../lib/tracking'
+import { WhatsAppButton } from '../components/WhatsAppButton'
 
 export function ContactPage() {
   const [bookingDate, setBookingDate] = useState<Date | null>(new Date())
@@ -27,7 +29,8 @@ export function ContactPage() {
 
   const bookingMessage = useMemo(() => {
     const dateText = bookingDate ? bookingDate.toLocaleDateString('it-IT') : 'data da definire'
-    return `Ciao, vorrei prenotare un tavolo per ${guests} persone il ${dateText} alle ${bookingTime}. Note: ${notes || 'nessuna nota'}.`
+    const timeLabel = bookingTime || 'orario da definire'
+    return `Ciao, vorrei prenotare un tavolo per ${guests} persone il ${dateText} alle ${timeLabel}. Note: ${notes || 'nessuna nota'}.`
   }, [bookingDate, bookingTime, guests, notes])
 
   return (
@@ -100,7 +103,7 @@ export function ContactPage() {
             </label>
             <label>
               Orario
-              <input type="time" value={bookingTime} onChange={(event) => setBookingTime(event.target.value)} />
+              <input type="time" value={bookingTime} onChange={(event) => setBookingTime(sanitizeTime(event.target.value))} />
             </label>
             <label>
               Persone
@@ -114,17 +117,21 @@ export function ContactPage() {
             </label>
             <label>
               Note
-              <textarea value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="Allergie, occasioni, richieste" />
+              <textarea
+                value={notes}
+                onChange={(event) => setNotes(sanitizeTextBlock(event.target.value, 220))}
+                maxLength={220}
+                placeholder="Allergie, occasioni, richieste"
+              />
             </label>
-            <a
+            <WhatsAppButton
               className="button button--primary"
-              href={buildWhatsAppLink(bookingMessage)}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackEvent('contact_booking_submit', { guests })}
+              message={bookingMessage}
+              eventName="contact_booking_submit"
+              eventPayload={{ guests }}
             >
               Invia prenotazione via WhatsApp
-            </a>
+            </WhatsAppButton>
           </form>
         </article>
 

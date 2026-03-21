@@ -14,6 +14,7 @@ import { MenuItemPage } from './pages/MenuItemPage'
 import { MenuPranzoPage } from './pages/MenuPranzoPage'
 import { MenuPranzoFestivoPage } from './pages/MenuPranzoFestivoPage'
 import { MenuAycePage } from './pages/MenuAycePage'
+import { MenuTakeAwayPage } from './pages/MenuTakeAwayPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { PolicyPage } from './pages/PolicyPage'
 import { ShopPage } from './pages/ShopPage'
@@ -41,6 +42,7 @@ function App() {
             <Route path="/menu/pranzo" element={<MenuPranzoPage />} />
             <Route path="/menu/pranzo-festivo" element={<MenuPranzoFestivoPage />} />
             <Route path="/menu/ayce" element={<MenuAycePage />} />
+            <Route path="/menu/take-away" element={<MenuTakeAwayPage />} />
             <Route path="/menu/:slug" element={<MenuItemPage />} />
             <Route path="/take-away" element={<TakeAwayPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />

@@ -1,12 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
-import { buildWhatsAppLink, menuCategories } from '../data/siteContent'
-import { trackEvent } from '../lib/tracking'
-import { useMenuOrderCart } from '../lib/useMenuOrderCart'
+import { menuCategories } from '../data/siteContent'
+import { WhatsAppButton } from '../components/WhatsAppButton'
 import { slugify } from '../lib/slugify'
 
 export function MenuItemPage() {
   const { slug } = useParams<{ slug: string }>()
-  const { addItem, cart } = useMenuOrderCart()
   const selected = menuCategories.find((item) => slugify(item.title) === slug)
 
   if (!selected) {
@@ -47,28 +45,14 @@ export function MenuItemPage() {
             ))}
           </div>
           <div className="stack-actions">
-            <button
-              type="button"
-              className="button button--primary"
-              onClick={() => {
-                addItem(selected.title)
-                trackEvent('menu_item_add_to_cart', { item: selected.title })
-              }}
-            >
-              Aggiungi al carrello ({cart[selected.title] ?? 0})
-            </button>
-            <Link className="button button--primary" to="/menu">
-              Vai alla categoria
-            </Link>
-            <a
+            <WhatsAppButton
               className="button button--ghost"
-              href={buildWhatsAppLink(`Ciao, vorrei informazioni su ${selected.title}.`)}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackEvent('menu_whatsapp_click', { item: selected.title })}
+              message={`Ciao, vorrei informazioni su ${selected.title}.`}
+              eventName="menu_whatsapp_click"
+              eventPayload={{ item: selected.title }}
             >
               Chiedi su WhatsApp
-            </a>
+            </WhatsAppButton>
             <Link className="button button--ghost" to="/menu">
               Torna al menu
             </Link>

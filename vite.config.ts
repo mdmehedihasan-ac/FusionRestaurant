@@ -20,8 +20,20 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: '/index.html',
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}'],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        globPatterns: ['**/*.{js,css,html,ico,svg,webmanifest}'],
         runtimeCaching: [
+          {
+            urlPattern: /^https?:\/\/[^/]+\/images\/products\/(.*)\.(png|jpg|jpeg|webp)$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'fusion-local-product-images',
+              expiration: {
+                maxEntries: 250,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+            },
+          },
           {
             urlPattern: /^https:\/\/www\.fusionrestaurant\.it\/.*\.(png|jpg|jpeg|svg|webp)$/i,
             handler: 'StaleWhileRevalidate',
