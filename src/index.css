@@ -1,4 +1,5 @@
 @import 'swiper/css';
+@import 'swiper/css/navigation';
 
 :root {
   font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
@@ -1984,6 +1985,23 @@ button {
   margin-top: 36px;
 }
 
+.promo-carousel .swiper-button-next,
+.promo-carousel .swiper-button-prev {
+  color: var(--accent);
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+.promo-carousel .swiper-button-next::after,
+.promo-carousel .swiper-button-prev::after {
+  font-size: 16px;
+  font-weight: 700;
+}
+.promo-carousel .swiper-button-disabled {
+  opacity: 0.3;
+}
+
 .promo-slide {
   position: relative;
   border-radius: 22px;
@@ -2496,6 +2514,15 @@ button {
   background: #fff;
   box-shadow: 0 2px 12px rgba(123, 26, 56, 0.06);
   transition: border-color 180ms ease, box-shadow 180ms ease;
+  overflow: hidden;
+}
+
+.menu-item-card img {
+  display: block;
+  width: calc(100% + 2.2rem);
+  margin: -1rem -1.1rem 0.6rem;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 .menu-item-card__image {

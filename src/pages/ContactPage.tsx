@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { contacts, openingHours, positiveReviews } from '../data/siteContent'
@@ -11,11 +11,21 @@ export function ContactPage() {
   const [bookingTime, setBookingTime] = useState('20:00')
   const [guests, setGuests] = useState('2')
   const [notes, setNotes] = useState('')
+  const [currentTime, setCurrentTime] = useState(() => new Date())
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setCurrentTime(new Date())
+    }, 60_000)
+
+    return () => {
+      window.clearInterval(timer)
+    }
+  }, [])
 
   const openStatus = useMemo(() => {
-    const now = new Date()
-    const day = now.getDay()
-    const hour = now.getHours()
+    const day = currentTime.getDay()
+    const hour = currentTime.getHours()
     const isOpenDay = day >= 2 || day === 0
     const inLunch = hour >= 12 && hour < 15
     const inDinner = hour >= 19 && hour < 23
@@ -25,7 +35,7 @@ export function ContactPage() {
     }
 
     return { label: 'ORA CHIUSO', className: 'status-closed' }
-  }, [])
+  }, [currentTime])
 
   const bookingMessage = useMemo(() => {
     const dateText = bookingDate ? bookingDate.toLocaleDateString('it-IT') : 'data da definire'

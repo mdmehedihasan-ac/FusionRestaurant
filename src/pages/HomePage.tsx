@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper/modules'
 import {
   galleryImages,
   heroVisuals,
@@ -23,6 +24,8 @@ export function HomePage() {
           className="hero__bg-image"
           src={heroVisuals.heroPrimary}
           alt="Fusion Restaurant Parabiago – Sushi e cucina orientale"
+          fetchPriority="high"
+          decoding="async"
         />
         <div className="hero__overlay" aria-hidden="true" />
         <motion.div
@@ -73,7 +76,7 @@ export function HomePage() {
             <h2>Le nostre proposte del momento.</h2>
           </div>
         </div>
-        <Swiper slidesPerView={1.1} spaceBetween={16} breakpoints={{ 700: { slidesPerView: 2.1 }, 1100: { slidesPerView: 3 } }}>
+        <Swiper slidesPerView={1.1} spaceBetween={16} breakpoints={{ 700: { slidesPerView: 2.1 }, 1100: { slidesPerView: 3 } }} modules={[Navigation]} navigation>
           {galleryImages.map((item) => (
             <SwiperSlide key={item.title}>
               <div className="promo-slide">
@@ -120,7 +123,7 @@ export function HomePage() {
         <article className="editorial-gallery">
           {galleryImages.slice(0, 3).map((item) => (
             <div key={item.title} className="editorial-gallery__item">
-              <div className="img-ph" role="img" aria-label={item.title}>img</div>
+              <img src={item.image} alt={item.title} loading="lazy" />
             </div>
           ))}
         </article>
@@ -143,7 +146,7 @@ export function HomePage() {
             .map((item) => (
               <SwiperSlide key={item.title}>
                 <article className="menu-card">
-                  <div className="img-ph" role="img" aria-label={item.title}>img</div>
+                  <img src={item.image} alt={item.title} loading="lazy" />
                   <div className="menu-card__body">
                     <h3>{item.title}</h3>
                     <p>{item.description}</p>

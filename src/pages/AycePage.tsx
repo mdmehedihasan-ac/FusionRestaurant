@@ -63,7 +63,7 @@ export function AycePage() {
       <section className="menu-grid">
         {aycePlans.map((plan) => (
           <article key={plan.title} className="menu-card">
-            <div className="img-ph" role="img" aria-label={plan.title}>img</div>
+            <img src={plan.image} alt={plan.title} loading="lazy" />
             <div className="menu-card__body">
               <h2>{plan.title}</h2>
               <p>{plan.description}</p>

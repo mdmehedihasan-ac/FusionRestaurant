@@ -53,7 +53,7 @@ export function TakeAwayPage() {
           <div className="compact-list">
             {menuCategories.slice(0, 5).map((item) => (
               <Link key={item.title} to={`/menu/${slugify(item.title)}`} className="compact-list__item">
-                <div className="img-ph" role="img" aria-label={item.title}>img</div>
+                <img src={item.image} alt={item.title} loading="lazy" />
                 <span>{item.title}</span>
               </Link>
             ))}

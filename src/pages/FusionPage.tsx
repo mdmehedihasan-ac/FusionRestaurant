@@ -16,8 +16,8 @@ export function FusionPage() {
           </p>
         </div>
         <div className="image-stack">
-          <div className="img-ph" role="img" aria-label={galleryImages[0].title}>img</div>
-          <div className="img-ph" role="img" aria-label={galleryImages[1].title}>img</div>
+          <img src="/fusion-foto-1.jpg" alt={galleryImages[0].title} loading="eager" />
+          <img src="/fusion-foto-2.jpg" alt={galleryImages[1].title} loading="eager" />
         </div>
       </section>
 
@@ -58,7 +58,9 @@ export function FusionPage() {
       </section>
 
       <section className="gallery-grid">
-        {galleryImages.map((item) => (
+        {[galleryImages[0], galleryImages[1], galleryImages[2], galleryImages[3],
+          { title: 'Ingredienti di qualit\u00e0', image: '/fusion-ingredienti.jpg' },
+          { title: 'Fusion experience', image: '/fusion-experience.jpg' }].map((item) => (
           <article
             key={item.title}
             className="gallery-card"
@@ -74,7 +76,7 @@ export function FusionPage() {
               }
             }}
           >
-            <div className="img-ph" role="img" aria-label={item.title}>img</div>
+            <img src={item.image} alt={item.title} loading="lazy" />
             <div className="gallery-card__overlay">
               <h2>{item.title}</h2>
             </div>
@@ -84,7 +86,7 @@ export function FusionPage() {
 
       {lightboxImage && (
         <button type="button" className="lightbox" onClick={() => setLightboxImage(null)} aria-label="Chiudi immagine">
-          <div className="img-ph" role="img" aria-label="Galleria Fusion ingrandita">img</div>
+          <img src={lightboxImage} alt="Galleria Fusion ingrandita" />
         </button>
       )}
     </main>
