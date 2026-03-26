@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Serve PDFs with correct headers so they open inline in browser
+[[headers]]
+  for = "/*.pdf"
+  [headers.values]
+    Content-Type = "application/pdf"
+    Content-Disposition = "inline"
+
+# SPA fallback — must come LAST so static files (PDFs, images, etc.) are served first
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
