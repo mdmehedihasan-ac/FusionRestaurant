@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import { contacts, menuCategories, orderingSteps } from '../data/siteContent'
+import { contacts, orderingSteps } from '../data/siteContent'
 import { trackEvent } from '../lib/tracking'
-import { slugify } from '../lib/slugify'
 
 export function TakeAwayPage() {
   return (
@@ -47,27 +46,22 @@ export function TakeAwayPage() {
         ))}
       </section>
 
-      <section className="panel-grid panel-grid--two">
-        <article className="detail-panel">
-          <p className="section-kicker">Categorie utili</p>
-          <div className="compact-list">
-            {menuCategories.slice(0, 5).map((item) => (
-              <Link key={item.title} to={`/menu/${slugify(item.title)}`} className="compact-list__item">
-                <img src={item.image} alt={item.title} loading="lazy" />
-                <span>{item.title}</span>
-              </Link>
-            ))}
-          </div>
-        </article>
-
+      <section className="takeaway-actions-block">
         <article className="detail-panel takeaway-quick-actions">
           <p className="section-kicker">Azioni rapide</p>
           <p>
-            Ordine minimo per consegna: <strong>30EUR</strong>. Per richieste rapide puoi scegliere subito il canale piu adatto.
+            Ordine minimo per consegna: <strong>30€</strong>. Per richieste rapide puoi scegliere subito il canale più adatto.
           </p>
           <div className="stack-actions">
-            <a
+            <Link
+              to="/menu/take-away"
               className="button button--primary"
+              onClick={() => trackEvent('takeaway_menu_click', { area: 'quick_actions' })}
+            >
+              Menu con carrello
+            </Link>
+            <a
+              className="button button--ghost"
               href={contacts.whatsappHref}
               target="_blank"
               rel="noreferrer"
@@ -78,9 +72,6 @@ export function TakeAwayPage() {
             <a className="button button--ghost" href={contacts.phoneHref} onClick={() => trackEvent('takeaway_phone_click')}>
               Telefona al ristorante
             </a>
-            <Link className="button button--ghost" to="/menu/take-away" onClick={() => trackEvent('takeaway_menu_click', { area: 'quick_actions' })}>
-              Apri menu con carrello
-            </Link>
           </div>
         </article>
       </section>

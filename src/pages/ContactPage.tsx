@@ -170,16 +170,18 @@ export function ContactPage() {
         <div className="section-heading">
           <div>
             <p className="section-kicker">Recensioni</p>
-            <h2>Dicono di noi</h2>
+            <h2>Cosa dicono di noi</h2>
           </div>
         </div>
 
-        <div className="contact-reviews-scroll" role="list">
+        <div className="reviews-grid" role="list">
           {positiveReviews.map((review) => (
-            <article key={review.author} className="offer-card contact-review-card" role="listitem">
-              <p>"{review.quote}"</p>
-              <strong>{review.author}</strong>
-              <span className="contact-review-card__rating">{review.rating}/5</span>
+            <article key={review.author} className="review-card" role="listitem">
+              <div className="review-card__stars" aria-label={`Voto: ${review.rating} su 5`}>
+                {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+              </div>
+              <p className="review-card__quote">"{review.quote}"</p>
+              <p className="review-card__author">{review.author}</p>
             </article>
           ))}
         </div>

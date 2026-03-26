@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { MenuOrderCart } from './MenuOrderCart'
@@ -10,6 +11,9 @@ type SiteLayoutProps = {
 }
 
 export function SiteLayout({ children }: SiteLayoutProps) {
+  const location = useLocation()
+  const showCart = location.pathname === '/menu/take-away'
+
   return (
     <div className="site-shell">
       <Header />
@@ -31,7 +35,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
         </a>
       </div>
 
-      <MenuOrderCart />
+      {showCart && <MenuOrderCart />}
     </div>
   )
 }

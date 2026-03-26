@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
+import type { Swiper as SwiperType } from 'swiper'
 import {
   galleryImages,
   heroVisuals,
@@ -10,7 +11,16 @@ import {
 } from '../data/siteContent'
 import { trackEvent } from '../lib/tracking'
 
+const homeDishPhotos = [
+  { title: 'Tartare di tonno', image: '/dishes/004-tartare-di-tonno.jpg' },
+  { title: 'Rainbow roll', image: '/dishes/031a-uramaki-rainbow-roll.jpg' },
+  { title: 'Sashimi moriawase', image: '/dishes/041-sashimi-moriawase.jpg' },
+]
+
 export function HomePage() {
+  const promoSwiperRef = useRef<SwiperType | null>(null)
+  const signatureSwiperRef = useRef<SwiperType | null>(null)
+
   const itemVariants = {
     hidden: { opacity: 0, y: 18 },
     visible: { opacity: 1, y: 0 },
@@ -72,23 +82,46 @@ export function HomePage() {
       <section className="promo-carousel section-block" aria-label="Promozioni in corso">
         <div className="section-heading">
           <div>
-            <p className="section-kicker">Offerte &amp; Promozioni</p>
+            <p className="section-kicker">La nostra cucina</p>
             <h2>Le nostre proposte del momento.</h2>
           </div>
         </div>
-        <Swiper slidesPerView={1.1} spaceBetween={16} breakpoints={{ 700: { slidesPerView: 2.1 }, 1100: { slidesPerView: 3 } }} modules={[Navigation]} navigation>
-          {galleryImages.map((item) => (
-            <SwiperSlide key={item.title}>
-              <div className="promo-slide">
-                <img src={item.image} alt={item.title} />
-                <div className="promo-slide__content">
-                  <h3>{item.title}</h3>
-                  <p>Scopri le nostre promozioni e offerte speciali.</p>
+        <div className="carousel-outer">
+          <button
+            type="button"
+            className="carousel-arrow"
+            aria-label="Slide precedente"
+            onClick={() => promoSwiperRef.current?.slidePrev()}
+          >
+            ←
+          </button>
+          <Swiper
+            onSwiper={(s) => { promoSwiperRef.current = s }}
+            slidesPerView={1}
+            spaceBetween={16}
+            breakpoints={{ 700: { slidesPerView: 2 }, 1100: { slidesPerView: 3 } }}
+          >
+            {galleryImages.map((item) => (
+              <SwiperSlide key={item.title}>
+                <div className="promo-slide">
+                  <img src={item.image} alt={item.title} />
+                  <div className="promo-slide__content">
+                    <h3>{item.title}</h3>
+                    <p>Scopri le nostre promozioni e offerte speciali.</p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <button
+            type="button"
+            className="carousel-arrow"
+            aria-label="Slide successivo"
+            onClick={() => promoSwiperRef.current?.slideNext()}
+          >
+            →
+          </button>
+        </div>
       </section>
 
       <section className="feature-grid" aria-label="Service highlights">
@@ -121,7 +154,7 @@ export function HomePage() {
           </div>
         </article>
         <article className="editorial-gallery">
-          {galleryImages.slice(0, 3).map((item) => (
+          {homeDishPhotos.map((item) => (
             <div key={item.title} className="editorial-gallery__item">
               <img src={item.image} alt={item.title} loading="lazy" />
             </div>
@@ -132,7 +165,7 @@ export function HomePage() {
       <section className="section-block">
         <div className="section-heading">
           <div>
-            <p className="section-kicker">I nostri signature</p>
+            <p className="section-kicker">La nostra cucina</p>
             <h2>I piatti pi&ugrave; amati dai nostri ospiti.</h2>
           </div>
           <Link className="button button--ghost" to="/menu">
@@ -140,30 +173,48 @@ export function HomePage() {
           </Link>
         </div>
 
-        <Swiper slidesPerView={1.1} spaceBetween={16} breakpoints={{ 900: { slidesPerView: 2.2 } }}>
-          {menuCategories
-            .filter((item) => item.spotlight)
-            .map((item) => (
-              <SwiperSlide key={item.title}>
-                <article className="menu-card">
-                  <img src={item.image} alt={item.title} loading="lazy" />
-                  <div className="menu-card__body">
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                    <a
-                      className="text-link"
-                      href={item.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => trackEvent('home_bestseller_click', { item: item.title })}
-                    >
-                      Apri categoria originale
-                    </a>
-                  </div>
-                </article>
-              </SwiperSlide>
-            ))}
-        </Swiper>
+        <div className="carousel-outer">
+          <button
+            type="button"
+            className="carousel-arrow"
+            aria-label="Slide precedente"
+            onClick={() => signatureSwiperRef.current?.slidePrev()}
+          >
+            ←
+          </button>
+          <Swiper onSwiper={(s) => { signatureSwiperRef.current = s }} slidesPerView={1} spaceBetween={16} breakpoints={{ 900: { slidesPerView: 2 } }}>
+            {menuCategories
+              .filter((item) => item.spotlight)
+              .map((item) => (
+                <SwiperSlide key={item.title}>
+                  <article className="menu-card">
+                    <img src={item.image} alt={item.title} loading="lazy" />
+                    <div className="menu-card__body">
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
+                      <a
+                        className="text-link"
+                        href={item.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() => trackEvent('home_bestseller_click', { item: item.title })}
+                      >
+                        Apri categoria originale
+                      </a>
+                    </div>
+                  </article>
+                </SwiperSlide>
+              ))}
+          </Swiper>
+          <button
+            type="button"
+            className="carousel-arrow"
+            aria-label="Slide successivo"
+            onClick={() => signatureSwiperRef.current?.slideNext()}
+          >
+            →
+          </button>
+        </div>
       </section>
 
     </main>

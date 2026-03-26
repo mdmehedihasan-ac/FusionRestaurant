@@ -13,7 +13,7 @@ export function MenuPranzoPage() {
   return (
     <main className="page-shell page-shell--inner">
       <MenuFormulaPage
-        pdfHref="/menu-pranzo.pdf"
+        pdfHref="/Menu_Pranzo_Feriale_Fusion_2026.pdf"
         kicker="Formula Open — Dal Martedì al Venerdì"
         title="Menu Pranzo"
         info={pranzoFerialeInfo}

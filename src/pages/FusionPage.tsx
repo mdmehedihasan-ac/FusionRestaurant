@@ -57,13 +57,14 @@ export function FusionPage() {
         ))}
       </section>
 
-      <section className="gallery-grid">
-        {[galleryImages[0], galleryImages[1], galleryImages[2], galleryImages[3],
-          { title: 'Ingredienti di qualit\u00e0', image: '/fusion-ingredienti.jpg' },
-          { title: 'Fusion experience', image: '/fusion-experience.jpg' }].map((item) => (
-          <article
+      <section className="fusion-dish-showcase">
+        {[
+          { title: 'Uramaki signature', image: '/dishes/028a-uramaki-crispy-king.jpg' },
+          { title: 'Sashimi moriawase', image: '/dishes/041-sashimi-moriawase.jpg' },
+        ].map((item) => (
+          <figure
             key={item.title}
-            className="gallery-card"
+            className="fusion-dish-showcase__item"
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -77,10 +78,8 @@ export function FusionPage() {
             }}
           >
             <img src={item.image} alt={item.title} loading="lazy" />
-            <div className="gallery-card__overlay">
-              <h2>{item.title}</h2>
-            </div>
-          </article>
+            <figcaption>{item.title}</figcaption>
+          </figure>
         ))}
       </section>
 

@@ -13,7 +13,7 @@ export function MenuPranzoFestivoPage() {
   return (
     <main className="page-shell page-shell--inner">
       <MenuFormulaPage
-        pdfHref="/menu-pranzo-festivo.pdf"
+        pdfHref="/Menu_Pranzo_Festivo_Fusion_2026.pdf"
         kicker="Formula Open — Sabato, Domenica e Festivi"
         title="Pranzo Festivo"
         info={pranzoFestivoInfo}

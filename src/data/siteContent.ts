@@ -328,6 +328,7 @@ export const pranzoFestivoSections: DishSection[] = [
       { code: '102', title: 'Spiedino di pollo fritto', description: 'Con salsa spicy fusion.' },
       { code: '103', title: 'Tacos chicken spicy', description: 'Con pollo fritto, insalata e maionese piccante.' },
       { code: '104', title: 'Tacos spicy', description: 'Con spicy salmon.' },
+      { code: '109', title: 'Gnocchi coreani', description: '' },
       { code: '105', title: 'Bao', description: 'Panino ripieno con carne di maiale.' },
       { code: '106', title: 'Yam rolls', description: 'Involtini di patate dolci con cuore di tè matcha.' },
     ],
@@ -598,7 +599,6 @@ export const pranzoFestivoBevande: { section: string; items: PricedItem[] }[] = 
       { title: 'Caffè HAG / Orzo / Corretto', price: '2,00 €' },
       { title: 'Limoncello', price: '3,00 €' },
       { title: 'Amaro / Grappa', price: '4,00 €' },
-      { title: 'Sake', price: '6,00 €' },
     ],
   },
 ]
@@ -640,6 +640,7 @@ export const pranzoFerialeSections: DishSection[] = [
       { code: '102', title: 'Spiedino di pollo fritto', description: 'Con salsa spicy fusion.' },
       { code: '103', title: 'Tacos chicken spicy', description: 'Con pollo fritto, insalata e maionese piccante.' },
       { code: '104', title: 'Tacos spicy', description: 'Con spicy salmon.' },
+      { code: '109', title: 'Gnocchi coreani', description: '' },
     ],
   },
   {
@@ -857,7 +858,7 @@ export const ayceMenuInfo = {
   formulaPrice: '28,00 €',
   childPrice: '13,00 €',
   childNote: 'fino a 130 cm',
-  note: 'Coperto escluso. I dolci e le bevande sono esclusi dalla formula All You Can Eat.',
+  note: 'Coperto compreso. Le bevande e i dolci sono esclusi dalla formula All You Can Eat.',
 }
 
 export const ayceMenuSections: DishSection[] = [
@@ -890,6 +891,7 @@ export const ayceMenuSections: DishSection[] = [
       { code: '102', title: 'Spiedino di pollo fritto', description: 'Con salsa spicy fusion.' },
       { code: '103', title: 'Tacos chicken spicy', description: 'Con pollo fritto, insalata e maionese piccante.' },
       { code: '104', title: 'Tacos spicy', description: 'Con spicy salmon.' },
+      { code: '109', title: 'Gnocchi coreani', description: '' },
       { code: '105', title: 'Bao (1 pz a persona)', description: 'Panino ripieno con carne di maiale.' },
       { code: '106', title: 'Yam rolls (1 pz a persona)', description: 'Involtini di patate dolci con cuore di tè matcha.' },
       { code: '107', title: 'Crispy salmon spicy (1 pz a persona)', description: 'Con spicy salmon, philadelphia e salsa teriyaki.' },
@@ -1164,6 +1166,7 @@ export const takeAwayMenuSections: TakeAwaySection[] = [
       { code: '102', title: 'Spiedino di pollo fritto', description: 'Con salsa spicy fusion.', price: '6,00 €' },
       { code: '103', title: 'Tacos chicken spicy', description: 'Con pollo fritto, insalata e maionese piccante.', price: '5,00 €' },
       { code: '104', title: 'Tacos spicy', description: 'Con spicy salmon.', price: '5,00 €' },
+      { code: '109', title: 'Gnocchi coreani', description: '', price: '7,00 €' },
       { code: '105', title: 'Bao (1 pz.)', description: 'Panino ripieno con carne di maiale.', price: '4,50 €' },
       { code: '106', title: 'Yam rolls (1 pz.)', description: 'Involtini di patate dolci con cuore di tè matcha.', price: '4,50 €' },
       { code: '107', title: 'Crispy salmon spicy (1 pz.)', description: 'Con spicy salmon, philadelphia e salsa teriyaki.', price: '5,00 €' },
@@ -1546,12 +1549,44 @@ export const dishImages: Record<string, string> = {
   '102': '/dishes/145-spiedini-di-pollo.jpg',
   '103': '/dishes/103-tacos-chicken-spicy.png',
   '104': '/dishes/104-tacos-spicy.png',
+  '109': '/gnocchi-coreani.jpeg',
   '106': '/dishes/106-yam-rolls.jpg',
   '108': '/dishes/042-sake-sashimi.jpg',
   '110': '/dishes/110-uramaki-black-tiger.jpg',
   '111': '/dishes/111-uramaki-black-royal-salmon.jpg',
   '112': '/dishes/112-uramaki-black-miura.jpg',
   '113': '/dishes/113-uramaki-black-ebiten-special.jpg',
+  // AYCE-only items (not in take-away catalog)
+  'F1': '/dishes/003-tartare-di-salmone.jpg',
+  'F2': '/dishes/004-tartare-di-tonno.jpg',
+  'F6': '/dishes/058-moyashi-itame.jpg',
+  'C1': '/dishes/060a-cocktail-di-gamberi-in-salsa-rosa.jpg',
+  'C2': '/dishes/041-sashimi-moriawase.jpg',
+  'C3': '/dishes/042-sake-sashimi.jpg',
+  'C4': '/dishes/037d-gunkan-amaebi.jpg',
+  '68A': '/dishes/068a-ebi-crispy.jpg',
+  '105': '/dishes/051-pane-orientale-al-vapore.jpg',
+  '107': '/dishes/082-salmone-scottato-con-crosta-di-sesamo.jpg',
+}
+
+// Title-based image map for items without a numeric code (e.g. desserts)
+export const dishImagesByTitle: Record<string, string> = {
+  'Soufflé black & white': '/dishes/souffle-al-cioccolato.jpg',
+  'Soufflé al cioccolato': '/dishes/souffle-al-cioccolato.jpg',
+  'Cocco ripieno': '/dishes/cocco-ripieno.jpg',
+  'Crema catalana in coccio': '/dishes/crema-catalana.jpg',
+  'Limone ripieno': '/dishes/limone-ripieno.jpg',
+  'Gelato fritto': '/dishes/gelato-fritto.jpg',
+  'Tartufo classico': '/dishes/tartufo-classico.jpg',
+  'Marengo': '/dishes/marengo.jpg',
+  'Coppa cheesecake Monterosa': '/dishes/coppa-cheesecake-monterosa.jpg',
+  'Tortina della nonna': '/tortino della nonna.png',
+  'Gelato al tè verde': '/dishes/gelato-al-te-verde.jpg',
+  'Cip Ciok — Gelato al cioccolato': '/dishes/cip-ciok.jpg',
+  'Tiramisù della casa': '/images/products/tiramisu-della-casa.jpg',
+  'Tiramiù della casa': '/images/products/tiramisu-della-casa.jpg',
+  'Sorbetto al limone': '/sorbettoallimone.png',
+  'Mango fresco': '/dishes/mezzo-mango.jpg',
 }
 
 export const galleryImages = [
@@ -1596,52 +1631,52 @@ export const openingHours = [
 
 export const aycePlans = [
   {
-    title: 'Pranzo feriale',
-    description: 'Formula pensata per pausa pranzo con selezione ampia e servizio rapido.',
-    image: '/hero-pranzo.jpg',
-    cta: 'https://www.fusionrestaurant.it/all-you-can-eat-fusion-parabiago/',
+    title: 'Pranzo Feriale',
+    badge: 'PRANZO',
+    description: 'Dal Martedì al Venerdì (esclusi festivi). Formula OPEN: 2 porzioni per ogni piatto. Coperto compreso, bevande escluse.',
+    price: '€ 15',
+    image: '/images/sections/menu-pranzo.jpg',
+    formulaHref: '/menu/pranzo',
   },
   {
-    title: 'Cena all you can eat',
-    description: 'Esperienza completa serale con proposta sushi e cucina calda bilanciata.',
-    image: '/hero-ayce.jpg',
-    cta: 'https://www.fusionrestaurant.it/all-you-can-eat-fusion-parabiago/',
+    title: 'Pranzo Festivo',
+    badge: 'FESTIVI',
+    description: 'Sabato, Domenica e Festivi. Formula OPEN: 2 porzioni per ogni piatto. Coperto compreso, bevande escluse.',
+    price: '€ 19',
+    image: '/images/sections/menu-pranzo-festivo.jpg',
+    formulaHref: '/menu/pranzo-festivo',
   },
   {
-    title: 'Experience premium',
-    description: 'Piatto signature e selezioni stagionali valorizzate da una presentazione editoriale.',
-    image: '/fusion-experience.jpg',
-    cta: 'https://www.fusionrestaurant.it/all-you-can-eat-fusion-parabiago/',
+    title: 'Cena All You Can Eat',
+    badge: 'CENA',
+    description: 'Tutti i giorni della settimana. Formula AYCE completa con sushi, cucina calda e piatti signature. Coperto compreso, bevande escluse.',
+    price: '€ 28',
+    image: '/images/sections/menu-ayce.jpg',
+    formulaHref: '/menu/ayce',
   },
 ]
 
 export const ayceOffersByPeriod: Record<AycePeriod, AyceOffer[]> = {
   pranzo: [
     {
-      title: 'Open Lunch Feriale',
-      subtitle: 'Formula agile per pausa pranzo',
-      price: 'EUR 16.90',
-      notes: 'Coperto e bevande esclusi. Servizio rapido.',
+      title: 'Formula Pranzo Feriale',
+      subtitle: 'Dal Martedì al Venerdì',
+      price: '€ 15',
+      notes: 'Coperto compreso, bevande escluse.',
     },
     {
-      title: 'Open Lunch Weekend',
-      subtitle: 'Selezione estesa sabato e domenica',
-      price: 'EUR 22.90',
-      notes: 'Inclusi signature roll selezionati.',
+      title: 'Formula Pranzo Festivo',
+      subtitle: 'Sabato, Domenica e Festivi',
+      price: '€ 19',
+      notes: 'Coperto compreso, bevande escluse.',
     },
   ],
   cena: [
     {
-      title: 'Dinner Experience',
-      subtitle: 'Carta AYCE completa serale',
-      price: 'EUR 31.90',
-      notes: 'Include piatti premium e proposta calda.',
-    },
-    {
-      title: 'Dinner Prestige',
-      subtitle: 'Menu degustazione con extra signature',
-      price: 'EUR 36.90',
-      notes: 'Ideale per occasioni speciali.',
+      title: 'Formula Cena All You Can Eat',
+      subtitle: 'Tutti i giorni della settimana',
+      price: '€ 28',
+      notes: 'Coperto compreso, bevande escluse.',
     },
   ],
 }
@@ -1682,9 +1717,9 @@ export const deliveryMapEmbed =
   'https://www.google.com/maps?q=Via+Ugo+Foscolo+6,+Parabiago&output=embed'
 
 export const policyLinks: LinkItem[] = [
-  { label: 'Termini e condizioni', href: 'https://www.fusionrestaurant.it/termini-e-condizioni/' },
-  { label: 'Privacy policy', href: 'https://www.fusionrestaurant.it/privacy-policy/' },
-  { label: 'Cookies policy', href: 'https://www.fusionrestaurant.it/cookies-policy/' },
+  { label: 'Termini e condizioni', href: '/termini-e-condizioni' },
+  { label: 'Privacy policy', href: '/privacy' },
+  { label: 'Cookies policy', href: '/cookie-policy' },
 ]
 
 export const experiencePoints = [

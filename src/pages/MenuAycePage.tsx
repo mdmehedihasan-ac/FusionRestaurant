@@ -13,7 +13,7 @@ export function MenuAycePage() {
   return (
     <main className="page-shell page-shell--inner">
       <MenuFormulaPage
-        pdfHref="/menu-ayce.pdf"
+        pdfHref="/Menu_Cena_Fusion_2026.pdf"
         kicker="Formula All You Can Eat — Tutti i giorni"
         title="Cena All You Can Eat"
         info={ayceMenuInfo}

@@ -91,7 +91,7 @@ export function MenuOrderCart() {
           <Link
             className="button button--primary"
             to="/checkout"
-            onClick={() => trackEvent('menu_cart_whatsapp_click', { items: itemsCount })}
+            onClick={() => { trackEvent('menu_cart_whatsapp_click', { items: itemsCount }); setDrawerOpen(false) }}
           >
             Checkout
           </Link>

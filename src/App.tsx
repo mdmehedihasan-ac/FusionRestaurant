@@ -17,6 +17,9 @@ import { MenuAycePage } from './pages/MenuAycePage'
 import { MenuTakeAwayPage } from './pages/MenuTakeAwayPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { PolicyPage } from './pages/PolicyPage'
+import { PrivacyPage } from './pages/PrivacyPage'
+import { CookiePage } from './pages/CookiePage'
+import { TermsPage } from './pages/TermsPage'
 import { ShopPage } from './pages/ShopPage'
 import { TakeAwayPage } from './pages/TakeAwayPage'
 
@@ -50,6 +53,9 @@ function App() {
             <Route path="/zone-consegna" element={<DeliveryZonesPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/policy" element={<PolicyPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/cookie-policy" element={<CookiePage />} />
+            <Route path="/termini-e-condizioni" element={<TermsPage />} />
             <Route path="/contatti" element={<ContactPage />} />
 
             <Route path="/all-you-can-eat-fusion-parabiago" element={<Navigate to="/all-you-can-eat" replace />} />

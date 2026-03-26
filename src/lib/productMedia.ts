@@ -1,4 +1,5 @@
-import { takeAwayCatalog } from '../data/takeAwayCatalog'
+import { dishImages, dishImagesByTitle } from '../data/siteContent'
+import { takeAwayCatalog as takeAwayCatalogItems } from '../data/takeAwayCatalog'
 
 type ProductMedia = {
   image: string
@@ -35,7 +36,7 @@ const normalizeCode = (value: string) => {
 const mediaByCode = new Map<string, ProductMedia>()
 const mediaByTitle = new Map<string, ProductMedia>()
 
-for (const item of takeAwayCatalog) {
+for (const item of takeAwayCatalogItems) {
   const media: ProductMedia = {
     image: item.image || item.remoteImage,
     sourceUrl: item.sourceUrl,
@@ -55,6 +56,22 @@ for (const item of takeAwayCatalog) {
   }
   if (plainTitle && !mediaByTitle.has(plainTitle)) {
     mediaByTitle.set(plainTitle, media)
+  }
+}
+
+// Seed dishImages as fallback for AYCE-only items not present in takeAwayCatalog
+for (const [code, imagePath] of Object.entries(dishImages)) {
+  const normalized = normalizeCode(code)
+  if (!mediaByCode.has(normalized)) {
+    mediaByCode.set(normalized, { image: imagePath, sourceUrl: '' })
+  }
+}
+
+// Seed dishImagesByTitle for items without a numeric code (e.g. desserts)
+for (const [title, imagePath] of Object.entries(dishImagesByTitle)) {
+  const normalized = normalizeText(title)
+  if (!mediaByTitle.has(normalized)) {
+    mediaByTitle.set(normalized, { image: imagePath, sourceUrl: '' })
   }
 }
 

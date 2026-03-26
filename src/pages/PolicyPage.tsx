@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { policyLinks } from '../data/siteContent'
 
 export function PolicyPage() {
@@ -16,9 +17,9 @@ export function PolicyPage() {
           <article key={item.href} className="detail-panel">
             <p className="section-kicker">Documento</p>
             <h2>{item.label}</h2>
-            <a className="text-link" href={item.href} target="_blank" rel="noreferrer">
-              Apri documento
-            </a>
+            <Link className="text-link" to={item.href}>
+              Leggi
+            </Link>
           </article>
         ))}
       </section>

@@ -138,7 +138,7 @@ export function CheckoutPage() {
               Vai su WhatsApp
             </button>
             {entries.length === 0 && (
-              <Link className="button button--ghost" to="/menu">
+              <Link className="button button--ghost" to="/menu/take-away">
                 Aggiungi prodotti
               </Link>
             )}

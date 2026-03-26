@@ -14,7 +14,7 @@ export function Seo({ title, description }: SeoProps) {
   const merged = seoByPath[canonicalPath] ?? defaultSeo
   const seoTitle = title ?? merged.title
   const seoDescription = description ?? merged.description
-  const canonical = `https://fusionrestaurant.it${canonicalPath}`
+  const canonical = `https://www.fusionristorante.it${canonicalPath}`
 
   return (
     <Helmet>

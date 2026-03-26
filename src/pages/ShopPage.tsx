@@ -77,7 +77,7 @@ export function ShopPage() {
       <section className="menu-grid">
         {menuCategories.map((item) => (
           <article key={item.title} className="menu-card">
-            <div className="img-ph" role="img" aria-label={item.title}>img</div>
+            <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
             <div className="menu-card__body">
               <h2>{item.title}</h2>
               <p>{item.description}</p>

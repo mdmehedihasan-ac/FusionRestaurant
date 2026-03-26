@@ -19,15 +19,14 @@ type MenuFormulaPageProps = {
 export function MenuFormulaPage({ pdfHref, kicker, title, info, sections }: MenuFormulaPageProps) {
   return (
     <>
-      <div className="menu-pdf-bar">
-        <a className="button button--ghost menu-pdf-bar__btn" href={pdfHref} download>
-          ↓ Scarica il menu PDF
-        </a>
-      </div>
-
       <header className="menu-formula-header">
         <p className="section-kicker">{kicker}</p>
-        <h1>{title}</h1>
+        <div className="menu-formula-header__title-row">
+          <h1>{title}</h1>
+          <a className="button button--ghost menu-pdf-bar__btn" href={pdfHref} target="_blank" rel="noreferrer">
+            ↓ Scarica il menu PDF
+          </a>
+        </div>
         <div className="menu-formula-header__prices">
           <span className="menu-formula-header__price">Adulti <strong>{info.formulaPrice}</strong></span>
           <span className="menu-formula-header__price">Bambini {info.childNote} <strong>{info.childPrice}</strong></span>

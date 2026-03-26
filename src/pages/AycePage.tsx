@@ -62,18 +62,19 @@ export function AycePage() {
 
       <section className="menu-grid">
         {aycePlans.map((plan) => (
-          <article key={plan.title} className="menu-card">
-            <img src={plan.image} alt={plan.title} loading="lazy" />
+          <article key={plan.title} className="menu-card menu-card--no-image">
             <div className="menu-card__body">
+              <p className="section-kicker">{plan.badge}</p>
               <h2>{plan.title}</h2>
+              <strong className="ayce-plan-price">{plan.price}</strong>
               <p>{plan.description}</p>
               <div className="menu-card__actions">
-                <Link className="button button--ghost" to="/menu">
-                  Dettagli formula
+                <Link className="button button--ghost" to={plan.formulaHref}>
+                  Vedi il menu
                 </Link>
                 <a
                   className="button button--primary"
-                  href={buildWhatsAppLink(`Ciao, voglio prenotare AYCE per ${plan.title}.`)}
+                  href={buildWhatsAppLink(`Ciao, voglio prenotare per la formula ${plan.title}.`)}
                   target="_blank"
                   rel="noreferrer"
                 >
