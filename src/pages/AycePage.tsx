@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom'
-import { ayceOffersByPeriod, aycePlans, ayceRules, buildWhatsAppLink, contacts } from '../data/siteContent'
+import { aycePlans, ayceRules, buildWhatsAppLink, contacts } from '../data/siteContent'
 
 export function AycePage() {
-  const offers = [...ayceOffersByPeriod.pranzo, ...ayceOffersByPeriod.cena]
-
   return (
     <main className="page-shell page-shell--inner">
       <section className="page-hero page-hero--split">
@@ -27,24 +25,6 @@ export function AycePage() {
             </a>
           </div>
         </div>
-        <article className="detail-panel detail-panel--accent">
-          <p className="section-kicker">Il servizio</p>
-          <h2>Ordini a turni, sempre freschi e curati</h2>
-          <p>
-            Ogni turno di ordinazione garantisce freschezza e un servizio attento. Il personale ti guida tra le proposte e cura ogni dettaglio del tuo pasto.
-          </p>
-        </article>
-      </section>
-
-      <section className="offers-grid" aria-label="Offerte AYCE">
-        {offers.map((offer) => (
-          <article key={offer.title} className="offer-card">
-            <p className="section-kicker">{offer.subtitle}</p>
-            <h3>{offer.title}</h3>
-            <strong>{offer.price}</strong>
-            <p>{offer.notes}</p>
-          </article>
-        ))}
       </section>
 
       <section className="section-block" aria-label="Regole anti spreco">

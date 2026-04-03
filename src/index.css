@@ -2786,6 +2786,26 @@ button {
   flex: 1;
 }
 
+.menu-item-card__allergens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.45rem;
+}
+
+.allergen-tag {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(123, 26, 56, 0.08);
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .menu-item-card__cta {
   margin-top: auto;
   padding: 0.65rem 0.75rem;

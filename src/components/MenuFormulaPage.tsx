@@ -50,6 +50,13 @@ export function MenuFormulaPage({ pdfHref, kicker, title, info, sections }: Menu
                   <span className="menu-item-card__code">{item.code}</span>
                   <h3 className="menu-item-card__title">{item.title}</h3>
                   {item.description && <p className="menu-item-card__desc">{item.description}</p>}
+                  {item.allergens && item.allergens.length > 0 && (
+                    <div className="menu-item-card__allergens" aria-label="Allergeni">
+                      {item.allergens.map((a) => (
+                        <span key={a} className="allergen-tag">{a}</span>
+                      ))}
+                    </div>
+                  )}
                 </article>
               )
             })}
