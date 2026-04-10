@@ -602,12 +602,6 @@ export const pranzoFestivoBevande: { section: string; items: PricedItem[] }[] = 
     ],
   },
   {
-    section: 'Sake',
-    items: [
-      { title: 'Sake', price: '6,00 €' },
-    ],
-  },
-  {
     section: 'Liquori',
     items: [
       { title: 'Limoncello', price: '3,00 €' },
